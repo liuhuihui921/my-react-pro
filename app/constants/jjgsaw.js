@@ -1,0 +1,2 @@
+export const JJGSAW_LIST = 'JJGSAW_LIST';
+export const JJGSAW_DIANZAN = 'JJGSAW_DIANZAN';
