@@ -5,7 +5,7 @@ import ReactSwipe from 'react-swipe';
 //导入接口操作
 import { getInformationList } from 'fetch/information/information'
 
-import './information.less'
+import './css/information.less'
 class Information extends React.Component {
     constructor(props, context) {
         super(props, context);
@@ -27,10 +27,10 @@ class Information extends React.Component {
         return res.json();
       }).then((json)=>{
         const data = json.data;
-        const hasMore = json.hasMore;
         this.setState({
           data:data
         });
+        console.log(this.state.data)
       })
     }
 
@@ -49,20 +49,22 @@ class Information extends React.Component {
         };
         return (
           <div className="information-main">
+            <div className="information-title">美间资讯</div>
             {
               this.state.data.length?
-              this.state.data.map((item)=>{
-                return (
-                  <ReactSwipe swipeOptions={opt}>
-                    <div className="information-item">
-                      <img src={item.img} alt={data.title}/>
-                    </div>
-                  </ReactSwipe>
-                )
-              })
+              <ReactSwipe swipeOptions={opt}>
+                {
+                  this.state.data.map((item,key)=>{
+                    return (
+                        <div className="information-item" key={key}>
+                          <img src={item.img} alt={item.title}/>
+                        </div>
+                    )
+                  })
+                }
+              </ReactSwipe>
               :"加载中..."
             }
-            information
           </div>
         )
     }

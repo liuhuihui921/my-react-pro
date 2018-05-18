@@ -10,7 +10,7 @@ import ListLoadMore from 'components/LoadMore/index'
 //导入接口操作
 import { getListData } from 'fetch/jigsaw/jigsaw'
 
-import './jigsaw.less'
+import './css/jigsaw.less'
 class Home extends React.Component {
     constructor(props, context) {
         super(props, context);

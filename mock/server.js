@@ -31,14 +31,21 @@ router.post('/api/updateDianzan', function *(next) {
     }
 });
 
+//获取首页右侧资讯
 var informationData = require('./information/information.js')
-router.get('/api/information', function *(next) {
+router.get('/api/informationList', function *(next) {
     console.log('首页资讯图片列表')
 
     this.body = informationData
 });
 
+//获取首页右侧品牌
+var hotBrandData = require('./hotBrand/hotBrand.js')
+router.get('/api/hotBrandList', function *(next) {
+    console.log('首页热门品牌列表')
 
+    this.body = hotBrandData
+});
 
 
 

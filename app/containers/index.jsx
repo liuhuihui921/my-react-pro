@@ -19,7 +19,7 @@ class App extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div className="main">
                 <Header pathName={this.props.location.pathname}/>
                 {
                     this.state.initDone
