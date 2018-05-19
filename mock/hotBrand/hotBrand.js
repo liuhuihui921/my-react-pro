@@ -9,7 +9,7 @@ var data = Mock.mock({
     'img|3':[{
       'imgId|+1':1,
       'title|3-5':'@ctitle',
-      'img':"@image('70X70','#dfd29b')"
+      'img':"@image('60X60','#dfd29b')"
     }]
   }]
 });
