@@ -27,10 +27,9 @@ class HotBrand extends React.Component {
       result.then((res)=>{
         return res.json();
       }).then((json)=>{
-        const data = json.data;
+        let data = json.data;
         data.map((item)=>{
           item.showCollection = false;
-          return item;
         });
         this.setState({
           data:data
@@ -45,34 +44,36 @@ class HotBrand extends React.Component {
 
     handleMouseOver(key)
     {
-      const statedata = this.state.data;
-      statedata.map((item,k)=>{
+      let statedata = this.state.data;
+      let statedataNew = statedata.map((item,k)=>{
         if( key===k )
         {
-          item.showCollection = true;
-          return item;
+          return {...item,showCollection:true}
         }else{
-          return item;
+          return item
         }
       })
+      console.log(statedataNew);
       this.setState({
-        data: statedata
+        data: statedataNew
       })
+      console.log(this.state.data);
     }
 
     handleMouseOut(key)
     {
-      const statedata = this.state.data;
-      statedata.map((item,k)=>{
+      let statedataOut = this.state.data;
+      let statedataOutNew = statedataOut.map((item,k)=>{
         if( key===k )
         {
-          item.showCollection = false;
+          return {...item,showCollection:false}
+        }else{
+          return item
         }
-        return item;
       });
-      // this.setState({
-      //   data: prevState.data.concat(data)
-      // })
+      this.setState({
+        data: statedataOutNew
+      })
     }
     render() {
         return (
@@ -96,7 +97,7 @@ class HotBrand extends React.Component {
                                onMouseOut={()=>this.handleMouseOut(key)}>
                             <p className="hotbrand-text-name">{item.title}</p>
                             {
-                              this.state.showCollection?
+                              item.showCollection?
                               <div className="hotbrand-btn-collection"><span>收藏</span></div>
                               :<p className="hotbrand-text-content">{item.content}</p>
                             }
