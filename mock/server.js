@@ -41,14 +41,37 @@ router.get('/api/informationList', function *(next) {
 
 //获取首页右侧品牌
 var hotBrandData = require('./hotBrand/hotBrand.js')
-router.get('/api/hotBrandList', function *(next) {
+var hotBrandDataNew = require('./hotBrand/hotBrandNew.js')
+router.get('/api/hotBrandList/:type', function *(next) {
     console.log('首页热门品牌列表')
 
-    this.body = hotBrandData
+    const params = this.params
+    const paramsType = params.type
+    console.log('是否点击换一换热门品牌：' + paramsType)
+    if(paramsType == 1)
+    {
+      this.body = hotBrandDataNew
+    }else{
+      this.body = hotBrandData
+    }
 });
 
+//获取右侧设计达人
+var designManData = require('./designMan/designMan.js')
+var designManDataNew = require('./designMan/designManNew.js')
+router.get('/api/designManList/:type', function *(next) {
+    console.log('首页设计达人列表')
 
-
+    const params = this.params
+    const paramsType = params.type
+    console.log('是否点击换一换设计达人：' + paramsType)
+    if(paramsType == 1)
+    {
+      this.body = designManDataNew
+    }else{
+      this.body = designManData
+    }
+});
 
 
 

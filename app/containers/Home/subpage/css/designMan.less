@@ -1,0 +1,107 @@
+.designMan-main{
+  width: 20%;
+  float: left;
+  border-radius: 4px;
+  font-size: 12px;
+  .designMan-title{
+    font-size: 24px;
+    color: #7e8e98;
+    line-height: 72px;
+    width: 90%;
+    .designMan-btn-change{
+      display: block;
+      float: right;
+      cursor: pointer;
+      color: #7e8e98;
+      font-size: 12px;
+      // margin-right: 45px;
+      &:hover{
+        color: #000;
+      }
+    }
+  }
+  .designMan-content{
+    width: 90%;
+
+    .designMan-item{
+      background: white;
+      padding: 12px 18px 18px 18px;
+      margin-bottom: 12px;
+      border-radius: 4px;
+      width: 100%;
+      box-shadow: 0 1px 4px rgba(6, 31, 50, 0.12);
+      -webkit-box-shadow: 0 1px 4px rgba(6, 31, 50, 0.12);
+      -moz-shadow: 0 1px 4px rgba(6, 31, 50, 0.12);
+      -o-shadow: 0 1px 4px rgba(6, 31, 50, 0.12);
+      &:hover{
+        box-shadow: 0 3px 4px rgba(6, 31, 50, 0.22);
+      }
+      .designMan-item-info{
+        box-sizing: border-box;
+        width: 100%;
+        height: 72px;
+        position: relative;
+        white-space: nowrap;
+        .designMan-face{
+          width: 60px;
+          height: 60px;
+          img{
+            border-radius: 50%;
+          }
+        }
+        .designMan-userinfo{
+          margin-left: 10px;
+          position: absolute;
+          top: 0;
+          display: inline-block;
+          padding-top: 12px;
+          box-sizing: border-box;
+          height: 100%;
+          width: calc(~"100% - 80px");
+          cursor: pointer;
+          .designMan-username{
+            color: #3b454c;
+            font-size: 18px;
+            line-height: 18px;
+            display: inline-block;
+            max-width: calc(~"100% - 20px");//less使用calc如果直接calc(100% - 20px)会得到calc(80%)与结果不符
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          .designMan-info{
+            min-height: 12px;
+            margin-top: 6px;
+            display: block;
+            color: #b2c0c8;
+            font-size: 12px;
+            line-height: 16px;
+            white-space: normal;
+            span{
+              margin-right: 12px;
+            }
+          }
+        }
+      }
+      .designMan-btn-follow{
+        width: 100%;
+        position: absolute;
+        height: 32px;
+        line-height: 32px;
+        bottom: 4px;
+        background-color: #019ada;
+        text-align: center;
+        border-radius: 4px;
+        color: #fff;
+        -webkit-animation: FeaturedPeople__pulse___1pXV7 0.3s linear forwards;
+        -moz-animation: FeaturedPeople__pulse___1pXV7 0.3s linear forwards;
+        -ms-animation: FeaturedPeople__pulse___1pXV7 0.3s linear forwards;
+        -o-animation: FeaturedPeople__pulse___1pXV7 0.3s linear forwards;
+        animation: FeaturedPeople__pulse___1pXV7 0.3s linear forwards;
+        &:hover{
+          background-color: #018ac1;
+        }
+      }
+    }
+  }
+}

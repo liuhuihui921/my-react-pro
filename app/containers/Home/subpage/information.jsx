@@ -56,9 +56,11 @@ class Information extends React.Component {
                 {
                   this.state.data.map((item,key)=>{
                     return (
-                        <div className="information-item" key={key}>
+                      <a href={item.link} key={key}>
+                        <div className="information-item" >
                           <img src={item.img} alt={item.title}/>
                         </div>
+                      </a>
                     )
                   })
                 }

@@ -3,8 +3,9 @@ var Mock = require('mockjs');
 var data = Mock.mock({
   'data|3-5':[{
     'id|+1':1,
+    'link':'@url',
     'title':'@ctitle',
-    'img':"@image('240x130','#dfd29b')"
+    'img':"@image('340x200','#dfd29b')"
   }]
 });
 // 输出结果

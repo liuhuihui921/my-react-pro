@@ -29,7 +29,7 @@ class LoadMore extends React.Component {
     componentDidMount()
     {
       let timeOutId;
-      const wrapper = this.refs.wapper;
+      const wrapper = this.refs.wrapper;
       const loadMoreFn = this.props.loadMoreFn;
       function callback()
       {

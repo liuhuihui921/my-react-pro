@@ -18,7 +18,7 @@ class HotBrand extends React.Component {
 
     initData()
     {
-      const result =  getHotBrandList();
+      const result =  getHotBrandList(0);
       this.resultHandle(result);
     }
 
@@ -28,9 +28,7 @@ class HotBrand extends React.Component {
         return res.json();
       }).then((json)=>{
         let data = json.data;
-        data.map((item)=>{
-          item.showCollection = false;
-        });
+        data.map(item=>item.showCollection = false);
         this.setState({
           data:data
         });
@@ -53,11 +51,9 @@ class HotBrand extends React.Component {
           return item
         }
       })
-      console.log(statedataNew);
       this.setState({
         data: statedataNew
       })
-      console.log(this.state.data);
     }
 
     handleMouseOut(key)
@@ -75,12 +71,18 @@ class HotBrand extends React.Component {
         data: statedataOutNew
       })
     }
+
+    handleChange()
+    {
+      const result =  getHotBrandList(1);
+      this.resultHandle(result);
+    }
     render() {
         return (
             <div className="hotbrand-main">
               <div className="hotbrand-title">
                 热门品牌
-                <span className="hotbrand-btn-change">换一换</span>
+                <span className="hotbrand-btn-change" onClick={()=>this.handleChange()}>换一换</span>
               </div>
               <div className="hotbrand-content">
               {
@@ -88,13 +90,13 @@ class HotBrand extends React.Component {
                   this.state.data.map((item,key)=>{
                     return (
                       <div key={key} className="hotbrand-item">
-                        <div className="hotbrand-top">
+                        <div className="hotbrand-top"
+                             onMouseOver={()=>this.handleMouseOver(key)}
+                             onMouseOut={()=>this.handleMouseOut(key)}>
                           <div className="hotbrand-top-img">
                             <img src={item.logo} alt={item.title}/>
                           </div>
-                          <div className="hotbrand-top-text"
-                               onMouseOver={()=>this.handleMouseOver(key)}
-                               onMouseOut={()=>this.handleMouseOut(key)}>
+                          <div className="hotbrand-top-text">
                             <p className="hotbrand-text-name">{item.title}</p>
                             {
                               item.showCollection?

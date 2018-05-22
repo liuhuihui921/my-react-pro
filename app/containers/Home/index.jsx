@@ -7,7 +7,7 @@ import HomeHeader from 'components/Home/homeHeader'
 import Jigsaw from './subpage/jigsaw'
 import Information from './subpage/information'
 import HotBrand from './subpage/hotBrand'
-
+import DesignMan from './subpage/designMan'
 
 class Home extends React.Component {
     constructor(props, context) {
@@ -15,13 +15,14 @@ class Home extends React.Component {
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
     }
     render() {
-      //首页header+拼图精选+右侧美间资讯+热门品牌
+      //首页header+拼图精选+右侧美间资讯+热门品牌+设计达人
         return (
           <div>
             <HomeHeader/>
             <Jigsaw/>
             <Information/>
             <HotBrand/>
+            <DesignMan/>
           </div>
         )
     }
