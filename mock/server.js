@@ -73,7 +73,42 @@ router.get('/api/designManList/:type', function *(next) {
     }
 });
 
+//注册用户
+router.post('/api/registerUser', function *(next) {
+    console.log('注册用户')
 
+    // 获取参数
+    console.log(this.request.body)//获取post数据，需要中间件koa-bodyparser支持
+    this.body = {
+        errno: 0,
+        msg: '注册成功'
+    }
+});
+
+//登录
+router.post('/api/loginUser', function *(next) {
+    console.log('登录')
+
+    // 获取参数
+    console.log(this.request.body)//获取post数据，需要中间件koa-bodyparser支持
+    let result = {userId:1,nickName:'liuhuihui',phone:'13516718179',sex:'女',job:'老师',desc:'比较神秘，什么都没介绍'};//登录成功返回该用户基本信息
+    if(this.request.body.phone === '13516718179' && this.request.body.password === '123123')
+    {
+      console.log('登录成功');
+      this.body = {
+          errno: 0,
+          msg: '登录成功',
+          data:result
+      }
+    }else{
+      console.log('登录失败');
+      this.body = {
+          errno: 1,
+          msg: '登录失败'
+      }
+    }
+
+});
 
 
 // 首页 —— 广告（超值特惠）

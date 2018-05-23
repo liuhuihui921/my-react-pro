@@ -30,7 +30,8 @@ module.exports = {
             reducers: path.join(__dirname, 'app/reducers'),
             router: path.join(__dirname, 'app/router'),
             static: path.join(__dirname, 'app/static'),
-            mock: path.join(__dirname, 'mock')
+            mock: path.join(__dirname, 'mock'),
+            util: path.join(__dirname, 'app/util')
         }
     },
 

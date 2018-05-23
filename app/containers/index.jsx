@@ -20,7 +20,7 @@ class App extends React.Component {
     render() {
         return (
             <div className="main">
-                <Header pathName={this.props.location.pathname}/>
+                <Header pathName={this.props.location.pathname} userinfo={ this.props.userinfo }/>
                 {
                     this.state.initDone
                     ? this.props.children
@@ -51,6 +51,7 @@ class App extends React.Component {
 
 function mapStateToProps(state) {
     return {
+      userinfo : state.userinfo
     }
 }
 
