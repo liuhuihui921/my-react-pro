@@ -6,11 +6,12 @@ export function getListData(page) {
     return result
 }
 
-export function updateDianzan(dataId,userId)
+export function updateUserDianzan(dataId,userId,type)
 {
   const result = post('/api/updateDianzan', {
       dataId: dataId,
-      userId: userId
+      userId: userId,
+      type:type
   })
   return result
 }

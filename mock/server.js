@@ -21,10 +21,16 @@ router.get('/api/jigsawlist/:page', function *(next) {
 });
 //点赞
 router.post('/api/updateDianzan', function *(next) {
-    console.log('点赞')
-
     // 获取参数
     console.log(this.request.body)//获取post数据，需要中间件koa-bodyparser支持
+    if(this.request.body.type == 1)//点赞
+    {
+      console.log('点赞')
+    }else{
+      console.log('取消点赞')
+    }
+    //根据dataId更新拼图点赞数
+    //dataId和userId更新用户点赞的拼图
     this.body = {
         errno: 0,
         msg: 'ok'

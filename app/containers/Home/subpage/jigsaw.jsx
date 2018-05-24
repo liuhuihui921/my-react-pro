@@ -1,17 +1,19 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { bindActionCreators } from 'redux'
-// import { connect } from 'react-redux'
+import { connect } from 'react-redux'
 
 //导入UI组件
 import HomeHeader from 'components/Home/homeHeader'
 import JigsawList from 'components/Home/jigsawList'
 import ListLoadMore from 'components/LoadMore/index'
 //导入接口操作
-import { getListData } from 'fetch/jigsaw/jigsaw'
+import { getListData,updateUserDianzan } from 'fetch/jigsaw/jigsaw'
+//导入action
+import { updateDianzan } from 'actions/userinfo'
 
 import './css/jigsaw.less'
-class Home extends React.Component {
+class Jigsaw extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
@@ -22,6 +24,7 @@ class Home extends React.Component {
           nextPage : 1
         }
         this.loadMoreData = this.loadMoreData.bind(this);
+        this.dianzanFun = this.dianzanFun.bind(this);
     }
     // 获取数据
     initData()
@@ -64,13 +67,38 @@ class Home extends React.Component {
       });
     }
 
+    //type 1:点赞  2：取消点赞
+    dianzanFun(type,dataId)
+    {
+      if(!this.props.userId)
+      {
+        alert("请先登录");
+      }else{
+        //更新数据到后台
+        const result  = updateUserDianzan(dataId,this.props.userId,type);
+        result.then((res)=>{
+          return res.json();
+        }).then((json)=>{
+          let errorTip = "";
+          if(json.errno)//提交数据失败
+          {
+            errorTip = '提交数据失败啦~~~~~';
+          }else{//提交数据成功
+            errorTip = '提交数据成功';
+            //保存成功更新redux userinfo中的点赞数据
+            this.props.updateDianzan(type,dataId);
+          }
+          alert(errorTip);
+        })
+      }
+    }
     render() {
         return (
           <div className="jigsaw-main">
             <div className="jigsaw-title">拼图精选</div>
             {
               this.state.data.length?
-              <JigsawList data={this.state.data} />:
+              <JigsawList data={this.state.data} dianzanFun={this.dianzanFun} dianzanArr={this.props.dianzanArr}/>:
               "加载中..."
             }
             {
@@ -82,7 +110,12 @@ class Home extends React.Component {
         )
     }
 }
-export default Home
+export default connect(state => ({
+    dianzanArr: state.userinfo.dianzan,
+    userId: state.userinfo.userId
+  }),{updateDianzan}
+)(Jigsaw)
+// export default Jigsaw
 // function mapStateToProps(state) {
 //     return {
 //         // userinfo: state.userinfo

@@ -28,17 +28,18 @@ class Home extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        // userinfo: state.userinfo
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-    }
-}
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Home)
+export default Home
+// function mapStateToProps(state) {
+//     return {
+//         // userinfo: state.userinfo
+//     }
+// }
+//
+// function mapDispatchToProps(dispatch) {
+//     return {
+//     }
+// }
+// export default connect(
+//     mapStateToProps,
+//     mapDispatchToProps
+// )(Home)

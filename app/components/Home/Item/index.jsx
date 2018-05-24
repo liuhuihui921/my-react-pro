@@ -11,6 +11,7 @@ class ListItem extends React.Component {
     }
     render() {
         const data = this.props.data;
+        const dianzanArr = this.props.dianzanArr;
         return (
             <div className="list-item clear-fix">
                 <Link to={'/detail/' + data.id} >
@@ -23,7 +24,11 @@ class ListItem extends React.Component {
                       <p className="item-dianzan-num">{data.zan}人赞了</p>
                     </div>
                 </Link>
-                <button className="item-dianzan">点赞</button>
+                {
+                  dianzanArr.indexOf(data.id) === -1 ?
+                  <button className="item-dianzan" onClick={()=>this.props.dianzanFun(1,data.id)}>点赞</button>
+                  :<button className="item-dianzan-cancel" onClick={()=>this.props.dianzanFun(2,data.id)}>取消</button>
+                }
             </div>
         )
     }
