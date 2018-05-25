@@ -38,3 +38,21 @@ export const updateDianzan = (type,dataId) => {
     dataId:dataId
   }
 }
+
+//收藏/取消收藏 品牌
+export const collectionBrandAction = (type,dataId) => {
+  return {
+    type: actionTypes.USERINFO_COLLECTIONBRAND,
+    collectiontype:type,
+    dataId:dataId
+  }
+}
+
+//关注/取消关注 用户
+export const followUserAction = (type,data) => {
+  return {
+    type: actionTypes.USERINFO_FOLLOW,
+    followtype:type,
+    data:data
+  }
+}

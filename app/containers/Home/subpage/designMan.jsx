@@ -1,9 +1,14 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
+import { connect } from 'react-redux'
 
 import { Link } from 'react-router'
 //导入接口操作
-import { getDesignManList } from 'fetch/designMan/designMan'
+import { getDesignManList,followUser } from 'fetch/designMan/designMan'
+
+import { followUserAction } from 'actions/userinfo'
+
+import Alert from 'components/Alert'
 
 import './css/designMan.less'
 class DesignMan extends React.Component {
@@ -11,9 +16,13 @@ class DesignMan extends React.Component {
         super(props, context);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {
-          data:[]
+          data:[],
+          alertStatus:false,//弹窗状态：默认隐藏
+          alertTip:'',
+          followId:''//取消关注Id，保存到state，点击弹窗确定按钮回调时使用
         }
     }
+
     initData()
     {
       const result = getDesignManList(0);
@@ -68,9 +77,67 @@ class DesignMan extends React.Component {
         data: statedataNew
       })
     }
+    //关闭弹窗
+    closeAlert = () => {
+      this.setState({
+        followId:'',
+        alertStatus:false,
+        alertTip:''
+      });
+    }
+    //弹窗点击确定按钮
+    confirmFun = () => {
+      this.localFollowFun(2,this.state.followId,this.props.userId);
+      //关闭弹窗
+      this.setState({
+        followId:'',
+        alertStatus:false,
+        alertTip:''
+      });
+    }
+    //关注/取消关注
+    followUser(dataId,type)
+    {
+      if(!this.props.userId)
+      {
+        alert("请先登录");
+      }else{
+        if(type === 1)//收藏
+        {
+          this.localFollowFun(type,dataId,this.props.userId);
+        }else{//取消收藏，先显示弹窗
+          this.setState({
+            followId:dataId,
+            alertStatus:true,
+            alertTip:'你确定要取消关注吗？'
+          });
+        }
+      }
+    }
+
+    localFollowFun(type,dataId,userId)
+    {
+      //更新数据到后台
+      const result  = followUser(type,dataId,userId);
+      result.then((res)=>{
+        return res.json();
+      }).then((json)=>{
+        let errorTip = "";
+        if(json.errno)//提交数据失败
+        {
+          errorTip = '提交关注数据失败啦~~~~~';
+        }else{//提交数据成功
+          errorTip = '提交关注数据成功';
+          //保存成功更新redux userinfo中的关注数据,将关注成功接口返回的关注的用户的信息保存到redux
+          this.props.followUserAction(type,json.data);
+        }
+        console.log(errorTip);
+      })
+    }
 
     render() {
       const result = this.state.data;
+      const ids = this.props.myfollow.map(item=>item.id);
         return (
           <div className="designMan-main">
             <div className="designMan-title">
@@ -82,8 +149,8 @@ class DesignMan extends React.Component {
                 result.length?
                 result.map((item,key)=>{
                   return (
-                    <Link to={ '/user/'+ item.id }  key={ key }>
-                      <div className="designMan-item"
+                    // <Link to={ '/user/'+ item.id }  key={ key }>
+                      <div className="designMan-item" key={ key }
                         onMouseOver={()=>this.handleMouseOver(key)}
                         onMouseOut={()=>this.handleMouseOut(key)}>
                         <div className="designMan-item-info">
@@ -94,7 +161,13 @@ class DesignMan extends React.Component {
                             <span className="designMan-username">{ item.nickName }</span>
                             {
                               item.showCollection?
-                              <div className="designMan-btn-follow"><span>关注</span></div>
+                              (
+                                // item.followStatus? 正常情况下应该通过接口返回的数据item.followStatus判断用户是否已经关注，
+                                // 但由于本地api接口通过mock模拟数据，不好操作原数据，所以通过ids来判断，方便测试
+                                ids.indexOf(item.id) !== -1?
+                                <div className="designMan-btn-follow designMan-btn-cancel" onClick={()=>this.followUser(item.id,2)}><span>已关注</span></div>
+                                :<div className="designMan-btn-follow" onClick={()=>this.followUser(item.id,1)}><span>关注</span></div>
+                              )
                               :(
                                 <div className="designMan-info">
                                     <span>{ item.sex }</span>
@@ -105,16 +178,21 @@ class DesignMan extends React.Component {
                           </div>
                         </div>
                       </div>
-                    </Link>
+                    // </Link>
                   )
                 })
                 :'加载中。。。'
               }
-
             </div>
+
+            <Alert alertTip={this.state.alertTip} alertStatus={this.state.alertStatus} closeAlert={this.closeAlert} confirmFun={this.confirmFun}/>
           </div>
         )
     }
 }
-
-export default DesignMan
+export default connect(state => ({
+    userId:state.userinfo.userId,
+    myfollow:state.userinfo.myfollow
+  }),{followUserAction}
+)(DesignMan)
+// export default DesignMan

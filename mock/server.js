@@ -37,6 +37,46 @@ router.post('/api/updateDianzan', function *(next) {
     }
 });
 
+//收藏/取消收藏
+router.post('/api/collectionBrand', function *(next) {
+    // 获取参数
+    console.log(this.request.body)//获取post数据，需要中间件koa-bodyparser支持
+    if(this.request.body.type == 1)//点赞
+    {
+      console.log('收藏')
+    }else{
+      console.log('取消收藏')
+    }
+    //根据dataId和userId更新用户收藏信息
+    this.body = {
+        errno: 0,
+        msg: 'ok'
+    }
+});
+let num = 1;
+//关注/取消关注
+router.post('/api/followUser', function *(next) {
+    // 获取参数
+    console.log(this.request.body)//获取post数据，需要中间件koa-bodyparser支持
+    if(this.request.body.type == 1)//关注
+    {
+      console.log('关注')
+    }else{
+      console.log('取消关注')
+    }
+    //关注成功，返回关注的用户信息存到redux
+    //关注的时候才需要返回关注的用户的信息，取消只需要返回关注的用户Id就好，这里为了简化全部返回用户信息
+    let result = {id:num,nickName:'liuhuihui',introduction:'关注的用户介绍介绍',sex:'女',city:'杭州',face:'',followStatus:true};
+    // num++;
+    //根据dataId和userId更新用户关注
+    this.body = {
+        errno: 0,
+        msg: 'ok',
+        data:result
+    }
+
+});
+
 //获取首页右侧资讯
 var informationData = require('./information/information.js')
 router.get('/api/informationList', function *(next) {

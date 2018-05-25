@@ -11,7 +11,7 @@ const initialState = {
   desc:'',
   dianzan:[1],//我点赞的拼图id
   mydesign:[],//我的设计
-  mycollection:[],//我的收藏
+  mycollection:[1],//我的收藏
   myfollow:[]//我关注的
 };
 
@@ -32,6 +32,22 @@ export default function userinfo (state = initialState, action) {
             }else{//取消点赞
               return {...state,dianzan:state.dianzan.filter(item => item!==action.dataId)}
             }
+        case actionTypes.USERINFO_COLLECTIONBRAND:
+          if(action.collectiontype == 1)//收藏
+          {
+            //concat不改变原数组
+            return {...state,mycollection:state.mycollection.concat(action.dataId)}
+          }else{//取消收藏
+            return {...state,mycollection:state.mycollection.filter(item => item!==action.dataId)}
+          }
+        case actionTypes.USERINFO_FOLLOW:
+          if(action.followtype == 1)//关注
+          {
+            //concat不改变原数组
+            return {...state,myfollow:state.myfollow.concat(action.data)}
+          }else{//取消关注
+            return {...state,myfollow:state.myfollow.filter(item => item.id!==action.data.id)}
+          }
         case actionTypes.USERINFO_UPDATE:
             return action.data;
         default:

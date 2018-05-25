@@ -20,7 +20,7 @@ class UserInfo extends React.Component {
         return {...prevState,activeTab:type}
       });
     }
-
+// className={`icon-jian ${item.selectNum > 0? 'edit-active':''}`}
     render() {
         return (
             <div className="userInfo-main">

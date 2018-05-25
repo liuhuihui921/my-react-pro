@@ -98,9 +98,13 @@
         -ms-animation: FeaturedPeople__pulse___1pXV7 0.3s linear forwards;
         -o-animation: FeaturedPeople__pulse___1pXV7 0.3s linear forwards;
         animation: FeaturedPeople__pulse___1pXV7 0.3s linear forwards;
-        &:hover{
+        &:hover:not(.designMan-btn-cancel){
           background-color: #018ac1;
         }
+      }
+      .designMan-btn-cancel{
+        color: #3b454c;
+        background-color: #dbdbdb;
       }
     }
   }
