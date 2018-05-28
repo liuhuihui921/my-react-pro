@@ -1,7 +1,7 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { connect } from 'react-redux'
-
+import {hashHistory} from 'react-router';
 import { Link } from 'react-router'
 //导入接口操作
 import { getDesignManList,followUser } from 'fetch/designMan/designMan'
@@ -51,6 +51,14 @@ class DesignMan extends React.Component {
     {
       const result = getDesignManList(1);
       this.resultHandle(result);
+    }
+
+    handleClick(e,itemId)
+    {
+      if('designMan-btn-follow' !== e.target.className)
+      {
+        hashHistory.push('/user/'+ itemId);
+      }
     }
 
     handleMouseOver(key)
@@ -152,7 +160,8 @@ class DesignMan extends React.Component {
                     // <Link to={ '/user/'+ item.id }  key={ key }>
                       <div className="designMan-item" key={ key }
                         onMouseOver={()=>this.handleMouseOver(key)}
-                        onMouseOut={()=>this.handleMouseOut(key)}>
+                        onMouseOut={()=>this.handleMouseOut(key)}
+                        onClick={(e)=>this.handleClick(e,item.id)}>
                         <div className="designMan-item-info">
                           <span className="designMan-face">
                             <img src={ item.face } alt={ item.nickName }/>

@@ -16,3 +16,10 @@ export const loginUser = (phone, password) =>{
   });
   return result;
 }
+
+export const getUserById = (userId) => {
+  const result = post('/api/getUserById', {
+      userId
+  });
+  return result;
+}

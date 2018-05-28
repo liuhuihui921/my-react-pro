@@ -6,6 +6,8 @@ import NotFound from 'containers/404'
 import Home from 'containers/Home'
 import Login from 'containers/Login'
 import UserInfo from 'containers/UserInfo'
+import Search from 'containers/Search'
+import User from 'containers/UserInfo/user'
 // 如果是大型项目，router部分就需要做更加复杂的配置
 // 参见 https://github.com/reactjs/react-router/tree/master/examples/huge-apps
 
@@ -22,6 +24,8 @@ class RouterMap extends React.Component {
                     <IndexRoute component={Home}/>
                     <Route path='/login' component={Login}/>
                     <Route path='/my/userinfo' component={UserInfo}/>
+                    <Route path='/user/:userId' component={User}/>
+                    <Route path='/Search' component={Search}/>
                     <Route path='*' component={NotFound}/>
                 </Route>
             </Router>

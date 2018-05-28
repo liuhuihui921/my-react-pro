@@ -156,6 +156,44 @@ router.post('/api/loginUser', function *(next) {
 
 });
 
+//根据userId查找用户信息
+router.post('/api/getUserById', function *(next) {
+    console.log('根据userId获取用户信息')
+
+    // 获取参数
+    console.log(this.request.body)//获取post数据，需要中间件koa-bodyparser支持
+    let result = {userId:2,nickName:'傻傻的我',phone:'13516718179',sex:'女',job:'老师',desc:'介绍：根据userId获取用户信息'};
+    this.body = result
+});
+
+router.get('/api/keywords/:word', function *(next) {
+    console.log('搜索结果页 - 搜索结果')
+
+    // 参数
+    const params = this.params
+    const paramsword = params.word
+    console.log('搜索字：' + paramsword)
+    let result = ['11','22','33','55'];
+    this.body = result
+})
+
+// 搜索结果页 - 搜索结果 - 三个参数
+var searchListData = require('./search/list.js')
+router.get('/api/search/:page/:keyword', function *(next) {
+    console.log('搜索结果页 - 搜索结果')
+
+    // 参数
+    const params = this.params
+    const paramsPage = params.page
+    const paramsKeyword = params.keyword
+
+    console.log('当前页数：' + paramsPage)
+    console.log('关键字：' + paramsKeyword)
+
+    this.body = jigsaweListData
+})
+
+
 
 // 首页 —— 广告（超值特惠）
 var homeAdData = require('./home/adnew.js')
