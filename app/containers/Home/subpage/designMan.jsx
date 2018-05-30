@@ -53,13 +53,18 @@ class DesignMan extends React.Component {
       this.resultHandle(result);
     }
 
-    handleClick(e,itemId)
-    {
-      if('designMan-btn-follow' !== e.target.className)
-      {
-        hashHistory.push('/user/'+ itemId);
-      }
-    }
+    // handleClick(e,itemId)
+    // {
+    //   console.log(this.refs)
+    //   if(!this.refs.follow)//关注按钮点击不跳转
+    //   {
+    //     hashHistory.push('/user/'+ itemId);
+    //   }
+    //   // if('designMan-btn-follow' !== e.target.className)
+    //   // {
+    //   //   hashHistory.push('/user/'+ itemId);
+    //   // }
+    // }
 
     handleMouseOver(key)
     {
@@ -104,8 +109,9 @@ class DesignMan extends React.Component {
       });
     }
     //关注/取消关注
-    followUser(dataId,type)
+    followUser(e,dataId,type)
     {
+      e.preventDefault();//防止Link自动跳转
       if(!this.props.userId)
       {
         alert("请先登录");
@@ -157,11 +163,11 @@ class DesignMan extends React.Component {
                 result.length?
                 result.map((item,key)=>{
                   return (
-                    // <Link to={ '/user/'+ item.id }  key={ key }>
-                      <div className="designMan-item" key={ key }
+                    <Link to={ '/user/'+ item.id }  key={ key }>
+                      <div className="designMan-item" key={ key } ref="designMan"
                         onMouseOver={()=>this.handleMouseOver(key)}
                         onMouseOut={()=>this.handleMouseOut(key)}
-                        onClick={(e)=>this.handleClick(e,item.id)}>
+                      >
                         <div className="designMan-item-info">
                           <span className="designMan-face">
                             <img src={ item.face } alt={ item.nickName }/>
@@ -174,8 +180,8 @@ class DesignMan extends React.Component {
                                 // item.followStatus? 正常情况下应该通过接口返回的数据item.followStatus判断用户是否已经关注，
                                 // 但由于本地api接口通过mock模拟数据，不好操作原数据，所以通过ids来判断，方便测试
                                 ids.indexOf(item.id) !== -1?
-                                <div className="designMan-btn-follow designMan-btn-cancel" onClick={()=>this.followUser(item.id,2)}><span>已关注</span></div>
-                                :<div className="designMan-btn-follow" onClick={()=>this.followUser(item.id,1)}><span>关注</span></div>
+                                <div className="designMan-btn-follow designMan-btn-cancel" ref="follow" onClick={(e)=>this.followUser(e,item.id,2)}><span>已关注</span></div>
+                                :<div className="designMan-btn-follow" ref="follow" onClick={(e)=>this.followUser(e,item.id,1)}><span>关注</span></div>
                               )
                               :(
                                 <div className="designMan-info">
@@ -187,7 +193,7 @@ class DesignMan extends React.Component {
                           </div>
                         </div>
                       </div>
-                    // </Link>
+                    </Link>
                   )
                 })
                 :'加载中。。。'

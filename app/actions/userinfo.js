@@ -56,3 +56,11 @@ export const followUserAction = (type,data) => {
     data:data
   }
 }
+
+// 保存图片地址
+export const saveImg = path => {
+  return {
+    type: actionTypes.USERINFO_SAVEIMG,
+    path,
+  }
+}

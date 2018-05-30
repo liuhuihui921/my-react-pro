@@ -19,6 +19,8 @@ export default function userinfo (state = initialState, action) {
     switch (action.type) {
         case actionTypes.USERINFO_ADD:
           return {...state,...{[action.datatype]: action.value}};
+        case actionTypes.USERINFO_SAVEIMG:
+          return {...state,...{face: action.path}};
         case actionTypes.USERINFO_CLEARDATA:
           // return {...state,...{nickName:'',phone:'',password:''}};
           return {...state,...initialState};

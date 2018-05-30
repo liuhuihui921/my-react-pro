@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {hashHistory} from 'react-router';
 
-import { saveUserData,clearData,loginUserData } from 'actions/userinfo';
+import { saveUserData,clearData,loginUserData,saveImg } from 'actions/userinfo';
 
 //导入接口操作
 import { registerUser,loginUser } from 'fetch/user/userinfo'
@@ -107,6 +107,13 @@ class Login extends React.Component {
       })
     }
 
+    uploadImg = event => {
+      // let userinfo = new userinfo();
+      // userinfo.append('file', event.target.files[0]);
+      this.props.saveImg(event.target.files[0].name);
+      console.log(event.target.files[0].name);
+    }
+
     render() {
       const { isRegister,errorTip } = this.state;
         return (
@@ -156,6 +163,10 @@ class Login extends React.Component {
                         <div className="register-input-box">
                           <input type="password" placeholder="请输入6-20位密码" value={ this.props.userinfo.password } data-type="password" onChange={(e)=>this.handleInput('password',e)}/>
                         </div>
+                        <div className="register-input-tip">头像</div>
+                        <div className="register-input-box">
+                          <input type="file" value={ this.props.userinfo.face } onChange={this.uploadImg}/>
+                        </div>
                       </div>
                       :
                       <div className="register-input-area">
@@ -188,6 +199,7 @@ export default connect(state => ({
   }),{
     saveUserData,
     clearData,
-    loginUserData
+    loginUserData,
+    saveImg
   }
 )(Login)
