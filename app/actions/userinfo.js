@@ -40,14 +40,20 @@ export const updateDianzan = (type,dataId) => {
 }
 
 //收藏/取消收藏 品牌
-export const collectionBrandAction = (type,dataId) => {
+// export const collectionBrandAction = (type,dataId) => {
+//   return {
+//     type: actionTypes.USERINFO_COLLECTIONBRAND,
+//     collectiontype:type,
+//     dataId:dataId
+//   }
+// }
+export const collectionBrandAction = (type,data) => {
   return {
     type: actionTypes.USERINFO_COLLECTIONBRAND,
     collectiontype:type,
-    dataId:dataId
+    data:data
   }
 }
-
 //关注/取消关注 用户
 export const followUserAction = (type,data) => {
   return {
@@ -61,6 +67,14 @@ export const followUserAction = (type,data) => {
 export const saveImg = path => {
   return {
     type: actionTypes.USERINFO_SAVEIMG,
-    path,
+    path
+  }
+}
+
+//上传单品
+export const saveDanpinImgAction = name => {
+  return {
+    type: actionTypes.USERINFO_SAVEDANPINIMG,
+    name
   }
 }

@@ -7,13 +7,25 @@ import './style.less'
 alertTip：弹窗msg信息
 alertStatus：弹窗状态（显示/隐藏）
 closeAlert：关闭弹窗函数
-confirmFun：确定按钮执行操作
+confirmFun：确定按钮执行操作 有值说明有回调需要执行
+没有值则只是一个单纯的提示弹窗，给定时间自动关闭
+closeTime:自动关闭弹窗时间
  */
 class Alert extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
     }
+
+    //更新发生后立即被调用，这里不能用componentDidMount()
+    componentDidUpdate()
+    {
+      if(this.props.closeTime)
+      {
+        setTimeout(this.props.closeAlert,this.props.closeTime);//多少时间后自动关闭弹窗
+      }
+    }
+
     render() {
         return (
             this.props.alertStatus&&<div className="modal-main">
@@ -23,10 +35,14 @@ class Alert extends React.Component {
                 </div>
                 <div className="modal-footer">
                   <div className="modal-item-dialog"></div>
-                  <div>
-                    <span className="modal-btn modal-btn-cancel" onClick={this.props.closeAlert}>取消</span>
-                    <span className="modal-btn modal-btn-confirm" onClick={this.props.confirmFun}>确定</span>
-                  </div>
+                  {
+                    this.props.confirmFun?
+                    <div>
+                      <span className="modal-btn modal-btn-cancel" onClick={this.props.closeAlert}>取消</span>
+                      <span className="modal-btn modal-btn-confirm" onClick={this.props.confirmFun}>确定</span>
+                    </div>
+                    :''
+                  }
                 </div>
               </div>
             </div>

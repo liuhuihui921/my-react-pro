@@ -34,7 +34,7 @@ article, aside, footer, header, hgroup, main, nav, section {
       overflow-y: auto;
       overflow-x: hidden;
       .collection-my-item{
-        overflow-y: scroll;
+        // overflow-y: scroll;
         overflow-x: hidden;
         height: 100%;
         width: 100%;
@@ -113,7 +113,7 @@ article, aside, footer, header, hgroup, main, nav, section {
         }
         .collection-toggle-bar:not([data-dide='1']){
           padding: 0 24px;
-          width: calc(~"100% - 50px");
+          // width: calc(~"100% - 50px");
           background: #ffffff;
           border-bottom: 1px solid #e6e6e8;
           -webkit-animation: TogglerBar__fadeInDownTen___2XIwE 0.3s linear forwards;
@@ -133,20 +133,13 @@ article, aside, footer, header, hgroup, main, nav, section {
               display: inline-block;
               margin: 0 32px 0 0;
               font-size: 16px;
-              .collection-toggle-active{
-                position: relative;
-                height: 49px;
-                font-weight: bold;
-                box-sizing: border-box;
+              .collection-toggle-a{
+                position: absolute;
+                width: 100%;
+                bottom: 0px;
+                display: -webkit-box;
                 color: #3b454c;
-                .collection-toggle-a{
-                  position: absolute;
-                  width: 100%;
-                  bottom: 0px;
-                  display: -webkit-box;
-                  color: #3b454c;
-                  transition: all .4s linear;
-                }
+                transition: all .4s linear;
               }
               span{
                 height: 48px;
@@ -156,9 +149,29 @@ article, aside, footer, header, hgroup, main, nav, section {
                 text-align: center;
               }
             }
+            .collection-toggle-active{
+              border-bottom: 2px solid #01acf3;
+            }
           }
           .collection-wrapper-line{
             height: 1px;
+            .collection-tab{
+              -webkit-backface-visibility: hidden;
+              -webkit-perspective: 1000;
+              height: 47px;
+              bottom: 0px;
+              display: none;
+              width: 33px;
+            }
+            .collection-tab-0{
+              display: block;
+              border-bottom: 2px solid #01acf3;
+              -webkit-transition: all 0.4s linear;
+              -moz-transition: all 0.4s linear;
+              -ms-transition: all 0.4s linear;
+              -o-transition: all 0.4s linear;
+              transition: all 0.4s linear;
+            }
           }
         }
 
@@ -245,6 +258,8 @@ article, aside, footer, header, hgroup, main, nav, section {
                       color: #3b454c;
                       .collection-brand-name{
                         color: #3b454c;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
                       }
                       .collection-brand-info{
                         color: #7e8e98;
@@ -259,6 +274,14 @@ article, aside, footer, header, hgroup, main, nav, section {
               }
             }
           }
+        }
+        .collection-desc-no-child{
+          font-size: 24px;
+          line-height: 2;
+          font-weight: bold;
+          color: #7e8e98;
+          margin-left: 20px;
+          margin-top: 20px;
         }
       }
     }

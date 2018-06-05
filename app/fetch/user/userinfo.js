@@ -23,3 +23,11 @@ export const getUserById = (userId) => {
   });
   return result;
 }
+
+export const saveDanpinImg = (userId,imgval) => {
+  const result = post('/api/saveDanpinImg', {
+      userId,
+      imgval
+  });
+  return result;
+}

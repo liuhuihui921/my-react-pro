@@ -38,6 +38,7 @@ router.post('/api/updateDianzan', function *(next) {
 });
 
 //收藏/取消收藏
+let numBrand = 1;
 router.post('/api/collectionBrand', function *(next) {
     // 获取参数
     console.log(this.request.body)//获取post数据，需要中间件koa-bodyparser支持
@@ -47,11 +48,14 @@ router.post('/api/collectionBrand', function *(next) {
     }else{
       console.log('取消收藏')
     }
+    let result = {id:numBrand,title:'热门品牌',content:'热门品牌介绍介绍',logo:'http://dummyimage.com/56X56/dfd29b&text=品牌',img:'http://dummyimage.com/60X60/dfd29b',collectionStatus:true};
     //根据dataId和userId更新用户收藏信息
     this.body = {
         errno: 0,
-        msg: 'ok'
+        msg: 'ok',
+        data:result
     }
+    numBrand++;
 });
 let num = 1;
 //关注/取消关注
@@ -74,7 +78,7 @@ router.post('/api/followUser', function *(next) {
         msg: 'ok',
         data:result
     }
-
+    num++;
 });
 
 //获取首页右侧资讯
@@ -154,6 +158,20 @@ router.post('/api/loginUser', function *(next) {
       }
     }
 
+});
+
+//上传单品
+router.post('/api/saveDanpinImg', function *(next) {
+    console.log('上传单品图片')
+
+    // 获取参数
+    console.log(this.request.body)//获取post数据，需要中间件koa-bodyparser支持
+    //将userId和imgval（这里只给了图片名称，其他参数忽略）保存到数据库
+    this.body = {
+        errno: 0,
+        msg: '保存成功',
+        imgval:this.request.body.imgval
+    }
 });
 
 //根据userId查找用户信息

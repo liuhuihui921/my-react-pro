@@ -138,12 +138,14 @@ class HotBrand extends React.Component {
         }else{//提交数据成功
           errorTip = '提交收藏数据成功';
           //保存成功更新redux userinfo中的收藏数据
-          this.props.collectionBrandAction(type,dataId);
+          // this.props.collectionBrandAction(type,dataId);
+          this.props.collectionBrandAction(type,json.data);
         }
         console.log(errorTip);
       })
     }
     render() {
+      const ids = this.props.mycollection.map(item=>item.id);
         return (
             <div className="hotbrand-main">
               <div className="hotbrand-title">
@@ -167,9 +169,12 @@ class HotBrand extends React.Component {
                             {
                               item.showCollection?
                               (
-                                this.props.mycollection.indexOf(item.id) === -1?
-                                <div className="hotbrand-btn-collection" onClick={()=>this.collectionFun(item.id,1)}><span>收藏</span></div>
-                                :<div className="hotbrand-btn-collection hotbrand-btn-cancel" onClick={()=>this.collectionFun(item.id,2)}><span>已收藏</span></div>
+                                // item.collectionStatus? 正常情况下应该通过接口返回的数据item.collectionStatus判断用户是否已经收藏，
+                                // 但由于本地api接口通过mock模拟数据，不好操作原数据，所以通过ids来判断，方便测试
+                                ids.indexOf(item.id) !== -1?
+                                // this.props.mycollection.indexOf(item.id) === -1?
+                                <div className="hotbrand-btn-collection hotbrand-btn-cancel" onClick={()=>this.collectionFun(item.id,2)}><span>已收藏</span></div>
+                                :<div className="hotbrand-btn-collection" onClick={()=>this.collectionFun(item.id,1)}><span>收藏</span></div>
                               )
                               :<p className="hotbrand-text-content">{item.content}</p>
                             }
@@ -198,7 +203,7 @@ class HotBrand extends React.Component {
 }
 export default connect(state => ({
     userId:state.userinfo.userId,
-    mycollection:state.userinfo.mycollection
+    mycollection:state.userinfo.mycollection.brand
   }),{collectionBrandAction}
 )(HotBrand)
 // export default HotBrand
