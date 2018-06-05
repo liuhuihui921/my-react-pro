@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import HomeHeader from 'components/Home/homeHeader'
 import JigsawList from 'components/Home/jigsawList'
 import ListLoadMore from 'components/LoadMore/index'
+
 //导入接口操作
 import { getListData,updateUserDianzan } from 'fetch/jigsaw/jigsaw'
 //导入action
@@ -21,7 +22,7 @@ class Jigsaw extends React.Component {
           data:[],
           hasMore : false,
           isLoadingMore : false,
-          nextPage : 1
+          nextPage : 1,
         }
         this.loadMoreData = this.loadMoreData.bind(this);
         this.dianzanFun = this.dianzanFun.bind(this);
@@ -92,6 +93,7 @@ class Jigsaw extends React.Component {
         })
       }
     }
+
     render() {
         return (
           <div className="jigsaw-main">
