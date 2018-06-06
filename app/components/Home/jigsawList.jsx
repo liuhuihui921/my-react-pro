@@ -14,7 +14,7 @@ class JigsawList extends React.Component {
           <div className="list-container">
             {
               this.props.data.map((item,key)=>{
-                return <Item key={key} data={item} dianzanFun={this.props.dianzanFun} dianzanArr={this.props.dianzanArr}/>
+                return <Item key={key} data={item} setDetailId={this.props.setDetailId} dianzanFun={this.props.dianzanFun} dianzanArr={this.props.dianzanArr}/>
               })
             }
           </div>

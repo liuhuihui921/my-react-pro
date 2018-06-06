@@ -19,6 +19,25 @@ router.get('/api/jigsawlist/:page', function *(next) {
 
     this.body = jigsaweListData
 });
+/*获取拼图详情
+detailId:拼图id
+*/
+router.get('/api/getListDetail/:detailId', function *(next) {
+    console.log('拼图详情')
+    const params = this.params
+    const detailId = params.detailId
+    detailData = jigsaweListData.data;
+    console.log('detailId：' + detailId)
+    console.log(detailData[detailId-1])
+    //根据detailId获取拼图详情以及作者信息组合数据返回
+    // let userInfo = {id:1,nickName:'liuhuihui',introduction:'关注的用户介绍介绍',sex:'女',city:'杭州',face:''};
+    this.body = {
+        errno: 0,
+        msg: 'ok',
+        jigsaweDetail:detailData[detailId-1]
+    }
+});
+
 //点赞
 router.post('/api/updateDianzan', function *(next) {
     // 获取参数
@@ -38,7 +57,7 @@ router.post('/api/updateDianzan', function *(next) {
 });
 
 //收藏/取消收藏
-let numBrand = 1;
+// let numBrand = 1;
 router.post('/api/collectionBrand', function *(next) {
     // 获取参数
     console.log(this.request.body)//获取post数据，需要中间件koa-bodyparser支持
@@ -48,16 +67,16 @@ router.post('/api/collectionBrand', function *(next) {
     }else{
       console.log('取消收藏')
     }
-    let result = {id:numBrand,title:'热门品牌',content:'热门品牌介绍介绍',logo:'http://dummyimage.com/56X56/dfd29b&text=品牌',img:'http://dummyimage.com/60X60/dfd29b',collectionStatus:true};
+    let result = {id:this.request.body.dataId,title:'热门品牌',content:'热门品牌介绍介绍',logo:'http://dummyimage.com/56X56/dfd29b&text=品牌',img:'http://dummyimage.com/60X60/dfd29b',collectionStatus:true};
     //根据dataId和userId更新用户收藏信息
     this.body = {
         errno: 0,
         msg: 'ok',
         data:result
     }
-    numBrand++;
+    // numBrand++;
 });
-let num = 1;
+// let num = 1;
 //关注/取消关注
 router.post('/api/followUser', function *(next) {
     // 获取参数
@@ -70,7 +89,7 @@ router.post('/api/followUser', function *(next) {
     }
     //关注成功，返回关注的用户信息存到redux
     //关注的时候才需要返回关注的用户的信息，取消只需要返回关注的用户Id就好，这里为了简化全部返回用户信息
-    let result = {id:num,nickName:'liuhuihui',introduction:'关注的用户介绍介绍',sex:'女',city:'杭州',face:'',followStatus:true};
+    let result = {id:this.request.body.dataId,nickName:'liuhuihui',introduction:'关注的用户介绍介绍',sex:'女',city:'杭州',face:'',followStatus:true};
     // num++;
     //根据dataId和userId更新用户关注
     this.body = {
@@ -78,7 +97,7 @@ router.post('/api/followUser', function *(next) {
         msg: 'ok',
         data:result
     }
-    num++;
+    // num++;
 });
 
 //获取首页右侧资讯

@@ -9,9 +9,9 @@ import JigsawList from 'components/Home/jigsawList'
 import ListLoadMore from 'components/LoadMore/index'
 
 //导入接口操作
-import { getListData,updateUserDianzan } from 'fetch/jigsaw/jigsaw'
+import { getListData } from 'fetch/jigsaw/jigsaw'
 //导入action
-import { updateDianzan } from 'actions/userinfo'
+// import { updateDianzan } from 'actions/userinfo'
 
 import './css/jigsaw.less'
 class Jigsaw extends React.Component {
@@ -25,7 +25,7 @@ class Jigsaw extends React.Component {
           nextPage : 1,
         }
         this.loadMoreData = this.loadMoreData.bind(this);
-        this.dianzanFun = this.dianzanFun.bind(this);
+        // this.dianzanFun = this.dianzanFun.bind(this);
     }
     // 获取数据
     initData()
@@ -68,31 +68,31 @@ class Jigsaw extends React.Component {
       });
     }
 
-    //type 1:点赞  2：取消点赞
-    dianzanFun(type,dataId)
-    {
-      if(!this.props.userId)
-      {
-        alert("请先登录");
-      }else{
-        //更新数据到后台
-        const result  = updateUserDianzan(dataId,this.props.userId,type);
-        result.then((res)=>{
-          return res.json();
-        }).then((json)=>{
-          let errorTip = "";
-          if(json.errno)//提交数据失败
-          {
-            errorTip = '提交数据失败啦~~~~~';
-          }else{//提交数据成功
-            errorTip = '提交数据成功';
-            //保存成功更新redux userinfo中的点赞数据
-            this.props.updateDianzan(type,dataId);
-          }
-          alert(errorTip);
-        })
-      }
-    }
+    // //type 1:点赞  2：取消点赞
+    // dianzanFun(type,dataId)
+    // {
+    //   if(!this.props.userId)
+    //   {
+    //     alert("请先登录");
+    //   }else{
+    //     //更新数据到后台
+    //     const result  = updateUserDianzan(dataId,this.props.userId,type);
+    //     result.then((res)=>{
+    //       return res.json();
+    //     }).then((json)=>{
+    //       let errorTip = "";
+    //       if(json.errno)//提交数据失败
+    //       {
+    //         errorTip = '提交数据失败啦~~~~~';
+    //       }else{//提交数据成功
+    //         errorTip = '提交数据成功';
+    //         //保存成功更新redux userinfo中的点赞数据
+    //         this.props.updateDianzan(type,dataId);
+    //       }
+    //       alert(errorTip);
+    //     })
+    //   }
+    // }
 
     render() {
         return (
@@ -100,7 +100,7 @@ class Jigsaw extends React.Component {
             <div className="jigsaw-title">拼图精选</div>
             {
               this.state.data.length?
-              <JigsawList data={this.state.data} dianzanFun={this.dianzanFun} dianzanArr={this.props.dianzanArr}/>:
+              <JigsawList data={this.state.data} dianzanFun={this.props.dianzanFun} setDetailId={this.props.setDetailId} dianzanArr={this.props.dianzanArr}/>:
               "加载中..."
             }
             {
@@ -113,9 +113,8 @@ class Jigsaw extends React.Component {
     }
 }
 export default connect(state => ({
-    dianzanArr: state.userinfo.dianzan,
     userId: state.userinfo.userId
-  }),{updateDianzan}
+  }),{}
 )(Jigsaw)
 // export default Jigsaw
 // function mapStateToProps(state) {
