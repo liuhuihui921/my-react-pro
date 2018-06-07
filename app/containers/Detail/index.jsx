@@ -1,6 +1,7 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { connect } from 'react-redux'
+import { Link } from 'react-router'
 
 import './style.less'
 class Detail extends React.Component {
@@ -55,7 +56,9 @@ class Detail extends React.Component {
                           <div className="detail-board detail-common-panel">
                             <h1 className="detail-board-name"></h1>
                             <p className="detail-board-tag">#简约</p>
-                            <p className="detail-edit-btn">再创作</p>
+                            <Link to={ '/design/'+ this.props.detailData.id }>
+                              <p className="detail-edit-btn">再创作</p>
+                            </Link>
                             {
                               collectionDesignIds.indexOf(this.props.detailData.id) === -1?
                               <p className="detail-collect-btn" onClick={()=>this.props.collectionFun(this.props.detailData.id,1)}>收藏</p>
@@ -89,7 +92,9 @@ class Detail extends React.Component {
 
                             </div>
                             <div className="detail-designer-content">
-                              <span className="detail-designer-avatar Avatar-avatar" style={this.props.detailData.img?{backgroundColor: 'transparent',backgroundImage:'url('+this.props.detailData.img+')'}:{backgroundColor: 'transparent'}}></span>
+                              <Link to={ '/user/'+ this.props.detailData.auterId }>
+                                <span className="detail-designer-avatar Avatar-avatar" style={this.props.detailData.img?{backgroundColor: 'transparent',backgroundImage:'url('+this.props.detailData.img+')'}:{backgroundColor: 'transparent'}}></span>
+                              </Link>
                               <div className="detail-designer-info">
                                 <p className="detail-designer-name"><span>{this.props.detailData.auter}</span></p>
                                 <p className="detail-designer-time">更新于 {this.props.detailData.ctime}</p>

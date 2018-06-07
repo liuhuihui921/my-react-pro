@@ -9,6 +9,7 @@ import UserInfo from 'containers/UserInfo'
 import Collection from 'containers/Collection'
 import Search from 'containers/Search'
 import User from 'containers/UserInfo/user'
+import Design from 'containers/Design'
 // 如果是大型项目，router部分就需要做更加复杂的配置
 // 参见 https://github.com/reactjs/react-router/tree/master/examples/huge-apps
 
@@ -23,6 +24,7 @@ class RouterMap extends React.Component {
                     <Route path='/my/collection' component={Collection}/>
                     <Route path='/user/:userId' component={User}/>
                     <Route path='/Search' component={Search}/>
+                    <Route path='/design/:designId' component={Design}/>
                     <Route path='*' component={NotFound}/>
                 </Route>
             </Router>
