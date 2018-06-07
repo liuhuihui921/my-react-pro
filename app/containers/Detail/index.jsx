@@ -29,6 +29,7 @@ class Detail extends React.Component {
     render() {
         const dianzanArr = this.props.dianzanArr;
         const followIds = this.props.followIds;
+        const collectionDesignIds = this.props.collectionDesignIds;
         // console.log(followIds)
         // console.log(this.props.detailData.auterId)
         // console.log(followIds.indexOf(this.props.detailData.auterId))
@@ -55,7 +56,11 @@ class Detail extends React.Component {
                             <h1 className="detail-board-name"></h1>
                             <p className="detail-board-tag">#简约</p>
                             <p className="detail-edit-btn">再创作</p>
-                            <p className="detail-collect-btn">收藏</p>
+                            {
+                              collectionDesignIds.indexOf(this.props.detailData.id) === -1?
+                              <p className="detail-collect-btn" onClick={()=>this.props.collectionFun(this.props.detailData.id,1)}>收藏</p>
+                              :<p className="detail-collect-btn detail-collected-btn" onClick={()=>this.props.collectionFun(this.props.detailData.id,2)}>已收藏</p>
+                            }
                             <div className="detail-group-btn">
                               {/* 已关注  detail-liked-btn */}
                               {

@@ -22,11 +22,11 @@ router.get('/api/jigsawlist/:page', function *(next) {
 /*获取拼图详情
 detailId:拼图id
 */
+let detailData = jigsaweListData.data;
 router.get('/api/getListDetail/:detailId', function *(next) {
     console.log('拼图详情')
     const params = this.params
     const detailId = params.detailId
-    detailData = jigsaweListData.data;
     console.log('detailId：' + detailId)
     console.log(detailData[detailId-1])
     //根据detailId获取拼图详情以及作者信息组合数据返回
@@ -56,26 +56,48 @@ router.post('/api/updateDianzan', function *(next) {
     }
 });
 
-//收藏/取消收藏
+//收藏/取消收藏 品牌
 // let numBrand = 1;
+var hotBrandData = require('./hotBrand/hotBrand.js');
+let hotBrandDataDetail = hotBrandData.data;
 router.post('/api/collectionBrand', function *(next) {
     // 获取参数
     console.log(this.request.body)//获取post数据，需要中间件koa-bodyparser支持
-    if(this.request.body.type == 1)//点赞
+    if(this.request.body.type == 1)//收藏
     {
       console.log('收藏')
     }else{
       console.log('取消收藏')
     }
-    let result = {id:this.request.body.dataId,title:'热门品牌',content:'热门品牌介绍介绍',logo:'http://dummyimage.com/56X56/dfd29b&text=品牌',img:'http://dummyimage.com/60X60/dfd29b',collectionStatus:true};
+    // let result = {id:this.request.body.dataId,title:'热门品牌',content:'热门品牌介绍介绍',logo:'http://dummyimage.com/56X56/dfd29b&text=品牌',img:'http://dummyimage.com/60X60/dfd29b',collectionStatus:true};
     //根据dataId和userId更新用户收藏信息
     this.body = {
         errno: 0,
         msg: 'ok',
-        data:result
+        data:hotBrandDataDetail[this.request.body.dataId-1]
     }
     // numBrand++;
 });
+
+//收藏/取消收藏 设计
+router.post('/api/collectionDesign', function *(next) {
+    // 获取参数
+    console.log(this.request.body)//获取post数据，需要中间件koa-bodyparser支持
+    if(this.request.body.type == 1)//收藏
+    {
+      console.log('收藏设计')
+    }else{
+      console.log('取消收藏设计')
+    }
+    //根据dataId和userId更新用户收藏信息
+    this.body = {
+        errno: 0,
+        msg: 'ok',
+        data:detailData[this.request.body.dataId-1]
+    }
+    // numBrand++;
+});
+
 // let num = 1;
 //关注/取消关注
 router.post('/api/followUser', function *(next) {
@@ -109,7 +131,7 @@ router.get('/api/informationList', function *(next) {
 });
 
 //获取首页右侧品牌
-var hotBrandData = require('./hotBrand/hotBrand.js')
+
 var hotBrandDataNew = require('./hotBrand/hotBrandNew.js')
 router.get('/api/hotBrandList/:type', function *(next) {
     console.log('首页热门品牌列表')

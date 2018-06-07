@@ -14,3 +14,13 @@ export const followUser = (type,dataId,userId) =>{
   });
   return result;
 }
+
+//收藏/取消收藏设计
+export const collectionDesign = (type,dataId,userId) =>{
+  const result = post('/api/collectionDesign', {
+    dataId,
+    userId,
+    type
+  });
+  return result;
+}

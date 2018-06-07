@@ -47,6 +47,7 @@ export const updateDianzan = (type,dataId) => {
 //     dataId:dataId
 //   }
 // }
+//收藏，取消收藏品牌
 export const collectionBrandAction = (type,data) => {
   return {
     type: actionTypes.USERINFO_COLLECTIONBRAND,
@@ -54,6 +55,16 @@ export const collectionBrandAction = (type,data) => {
     data:data
   }
 }
+
+//收藏，取消收藏设计
+export const collectionDesignAction = (type,data) => {
+  return {
+    type: actionTypes.USERINFO_COLLECTIONDESIGN,
+    collectiontype:type,
+    data:data
+  }
+}
+
 //关注/取消关注 用户
 export const followUserAction = (type,data) => {
   return {

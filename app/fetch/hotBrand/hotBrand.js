@@ -6,6 +6,7 @@ export function getHotBrandList(type) {
     return result
 }
 
+//收藏/取消收藏 品牌
 export const collectionBrand = (type,dataId,userId) =>{
   const result = post('/api/collectionBrand', {
     dataId,

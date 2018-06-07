@@ -17,6 +17,8 @@ class HotBrand extends React.Component {
           data : [],
           alertStatus:false,//弹窗状态：默认隐藏
           alertTip:'',
+          alertType:1,//1：有确定，取消按钮 2：纯提示弹窗
+          closeTime:0,
           collectionId:''//取消收藏Id，保存到state，点击弹窗确定按钮回调时使用
         }
         // this.collectionFun = this.collectionFun.bind(this);
@@ -85,13 +87,29 @@ class HotBrand extends React.Component {
       const result =  getHotBrandList(1);
       this.resultHandle(result);
     }
+    /*提示弹窗
+    alertTip:提示内容
+    closeTime：自动关闭时间
+    */
+    textAlert = (alertTip,closeTime) =>
+    {
+      this.setState({
+        collectionId:'',//收藏的设计Id
+        alertStatus:true,
+        alertTip:alertTip,
+        alertType:2,
+        closeTime:closeTime//2秒自动关闭弹窗
+      });
+    }
 
     //关闭弹窗
     closeAlert = () => {
       this.setState({
+        alertType:1,
         collectionId:'',
         alertStatus:false,
-        alertTip:''
+        alertTip:'',
+        closeTime:0
       });
     }
     //弹窗点击确定按钮
@@ -101,15 +119,17 @@ class HotBrand extends React.Component {
       this.setState({
         collectionId:'',
         alertStatus:false,
-        alertTip:''
+        alertTip:'',
+        alertType:1,
+        closeTime:0
       });
     }
     //收藏品牌
-    collectionFun(dataId,type)
+    collectionFun = (dataId,type) =>
     {
       if(!this.props.userId)
       {
-        alert("请先登录");
+        this.textAlert('请先登录',2000);
       }else{
         if(type === 1)//收藏
         {
@@ -118,6 +138,7 @@ class HotBrand extends React.Component {
           this.setState({
             collectionId:dataId,
             alertStatus:true,
+            alertType:1,
             alertTip:'你确定要取消收藏吗？'
           });
         }
@@ -141,7 +162,8 @@ class HotBrand extends React.Component {
           // this.props.collectionBrandAction(type,dataId);
           this.props.collectionBrandAction(type,json.data);
         }
-        console.log(errorTip);
+        this.textAlert(errorTip,1000);
+        // console.log(errorTip);
       })
     }
     render() {
@@ -196,7 +218,7 @@ class HotBrand extends React.Component {
               }
               </div>
 
-              <Alert alertTip={this.state.alertTip} alertStatus={this.state.alertStatus} closeAlert={this.closeAlert} confirmFun={this.confirmFun}/>
+              <Alert alertTip={this.state.alertTip} alertStatus={this.state.alertStatus} alertType={this.state.alertType} closeAlert={this.closeAlert} confirmFun={this.confirmFun} closeTime={this.state.closeTime}/>
             </div>
         )
     }

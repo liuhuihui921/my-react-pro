@@ -22,7 +22,8 @@ class Collection extends React.Component {
           collectionType:'all',
           alertStatus:false,//弹窗状态：默认隐藏
           alertTip:'',
-          closeTime:0
+          closeTime:0,
+          alertType:2
         }
     }
 
@@ -231,7 +232,7 @@ class Collection extends React.Component {
                   </div>
                 </div>
               </div>
-              <Alert alertTip={this.state.alertTip} alertStatus={this.state.alertStatus} closeAlert={this.closeAlert} confirmFun={false} closeTime={this.state.closeTime}/>
+              <Alert alertTip={this.state.alertTip} alertStatus={this.state.alertStatus} alertType={this.state.alertType} closeAlert={this.closeAlert} confirmFun={false} closeTime={this.state.closeTime}/>
             </div>
         )
     }

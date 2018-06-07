@@ -12,10 +12,7 @@ const initialState = {
   dianzan:[1],//我点赞的拼图id
   mydesign:[],//我的设计
   mycollection:{
-    design:[
-      {id:1,title:'设计',content:'设计介绍介绍',auter:'Daisy90',img:'http://dummyimage.com/130X170/dfd29b',collectionStatus:true},
-      {id:2,title:'设计2',content:'设计2介绍介绍',auter:'Daisy91',img:'http://dummyimage.com/130X170/dfd29b',collectionStatus:true}
-    ],
+    design:[],
     danpin:[],
     brand:[]
   },//我的收藏
@@ -60,6 +57,16 @@ export default function userinfo (state = initialState, action) {
             let mycollectionNew  = {...state.mycollection,brand:state.mycollection.brand.filter(item => item.id!==action.data.id)};
             return {...state,mycollection:mycollectionNew}
             // return {...state,mycollection:state.mycollection.filter(item => item!==action.dataId)}
+          }
+        case actionTypes.USERINFO_COLLECTIONDESIGN:
+          if(action.collectiontype == 1)//收藏
+          {
+            let mycollectionNew  = {...state.mycollection,design:state.mycollection.design.concat(action.data)};
+            //concat不改变原数组
+            return {...state,mycollection:mycollectionNew}
+          }else{//取消收藏
+            let mycollectionNew  = {...state.mycollection,design:state.mycollection.design.filter(item => item.id!==action.data.id)};
+            return {...state,mycollection:mycollectionNew}
           }
         case actionTypes.USERINFO_FOLLOW:
           if(action.followtype == 1)//关注

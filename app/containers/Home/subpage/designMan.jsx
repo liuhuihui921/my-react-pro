@@ -8,7 +8,7 @@ import { getDesignManList } from 'fetch/designMan/designMan'
 
 // import { followUserAction } from 'actions/userinfo'
 
-import Alert from 'components/Alert'
+// import Alert from 'components/Alert'
 
 import './css/designMan.less'
 class DesignMan extends React.Component {
